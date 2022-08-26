@@ -1,23 +1,73 @@
-import logo from './logo.svg';
+import Axios from 'axios'
+import { useState, useEffect } from 'react';
 import './App.css';
+import SearchIcon from './searchIcon.png'
 
 function App() {
+
+  const api = {
+    base: 'https://pixabay.com/api/',
+    key: "9342397-9c4d96ed2afeb8a6567bd1d19"
+  }
+  // search term/s
+  const [search, setSearch] = useState('');
+
+  // all photos retrived from pixabay api <=> 20 photos
+  const [photos, setPhotos] = useState({})
+
+  // current photo for background
+  const [photo, setPhoto] = useState({})
+
+
+
+
+  const getPhoto = (search) => {
+    Axios.get(`${api.base}?key=${api.key}&q=${search}&image_type=photo`)
+    .then(res => {
+      const apiData = res.data
+      setPhotos(apiData.hits)
+      setPhoto(photos[0])
+      console.log(photo)
+    })
+  }  
+
+// get array of data from pixabay
+  const handleSearch = (e) => {
+    console.log(search)
+    e.preventDefault();
+
+    getPhoto(search)
+    
+    console.log(photo)
+  }
+
+  
+  const changeBackground = () => {
+    console.log("clicked")
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+
+      <form onSubmit={handleSearch}>
+        <input
+          name="search"
+          type="text"
+          placeholder="Search Thames"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+        />
+        <button onClick={handleSearch} className="submit"><img id="searchIcon" src={SearchIcon} alt="search"/></button>
+      </form>
+
+      <button onClick={changeBackground} className="refresh">Refresh</button>
+
+      <div className="credits">
+        <a className="authorCredits" href="#">Author</a>
+        <a className="hostCredits">Pexels</a>
+      </div>
     </div>
   );
 }
