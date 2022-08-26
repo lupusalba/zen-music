@@ -13,7 +13,7 @@ function App() {
   const [search, setSearch] = useState('');
 
   // all photos retrived from pixabay api <=> 20 photos
-  const [photos, setPhotos] = useState({})
+  const [allPhotos, setAllPhotos] = useState({})
 
   // current photo for background
   const [photo, setPhoto] = useState({})
@@ -21,17 +21,14 @@ function App() {
 
 
 
-  const getPhoto = (search) => {
-    Axios.get(`${api.base}?key=${api.key}&q=${search}&image_type=photo`)
-    .then(res => {
-      const apiData = res.data
-      setPhotos(apiData.hits)
-      setPhoto(photos[0])
-      console.log(photo)
-    })
+  const getPhoto = async(search) => {
+    let result = await Axios.get(`${api.base}?key=${api.key}&q=${search}&image_type=photo`)
+    let data = await result.data.hits
+    console.log(data)
   }  
+  
 
-// get array of data from pixabay
+  // get array of data from pixabay
   const handleSearch = (e) => {
     console.log(search)
     e.preventDefault();
