@@ -13,39 +13,77 @@ function App() {
   const [search, setSearch] = useState('');
 
   // all photos retrived from pixabay api <=> 20 photos
-  const [allPhotos, setAllPhotos] = useState({})
+  const [photos, setPhotos] = useState({})
 
   // current photo for background
   const [photo, setPhoto] = useState({})
 
+  // counter
+  const [count, setCount] = useState(0)
 
 
+//   const getPhoto = (search) => {
+//     Axios.get(`${api.base}?key=${api.key}&q=${search}&image_type=photo`)
+//     .then(res => {
+//       const apiData = res.data
+//       setPhotos(apiData.hits)
+//       setPhoto(photos[0])
+//       console.log(photo)
+//     })
+//   }  
 
-  const getPhoto = async(search) => {
-    let result = await Axios.get(`${api.base}?key=${api.key}&q=${search}&image_type=photo`)
-    let data = await result.data.hits
-    console.log(data)
-  }  
-  
+// // get array of data from pixabay
+//   const handleSearch = (e) => {
+//     console.log(search)
+//     e.preventDefault();
 
-  // get array of data from pixabay
-  const handleSearch = (e) => {
-    console.log(search)
-    e.preventDefault();
-
-    getPhoto(search)
+//     getPhoto(search)
     
-    console.log(photo)
-  }
+//     console.log(photo)
+//   }
 
-  
-  const changeBackground = () => {
-    console.log("clicked")
+
+
+
+
+
+//default
+useEffect(() => {
+  let term = "snow"
+
+  async function fetchPhotos() {
+    const res = await fetch(`${api.base}?key=${api.key}&q=${term}&image_type=photo`)
+    const data = await res.json()
+    setPhotos(data.hits)
+    setPhoto(data.hits[0])
   }
+  fetchPhotos()
+
+},[])
+
+const test = {
+  backgroundImage: `url(${photo.largeImageURL})`
+}
+
+
+
+const changeBackground = () => {
+  setCount(count + 1)
+  console.log("clicked")
+  console.log(`${photos[count].largeImageURL}`)
+  setPhoto(photos[count])
+}
+
+
+const handleSearch = (e) => {
+  
+  e.preventDefault()
+  console.log("handele search")
+}
 
 
   return (
-    <div className="App">
+    <div className="App" style={test}>
 
 
       <form onSubmit={handleSearch}>
@@ -62,8 +100,8 @@ function App() {
       <button onClick={changeBackground} className="refresh">Refresh</button>
 
       <div className="credits">
-        <a className="authorCredits" href="#">Author</a>
-        <a className="hostCredits">Pexels</a>
+        <a className="authorCredits" href={photo.pageURL}>{photo.user}</a>
+        <a className="hostCredits" href="https://www.pexels.com/">Provided by Pexels</a>
       </div>
     </div>
   );
