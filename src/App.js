@@ -21,35 +21,13 @@ function App() {
   // counter
   const [count, setCount] = useState(1)
 
-
-//   const getPhoto = (search) => {
-//     Axios.get(`${api.base}?key=${api.key}&q=${search}&image_type=photo`)
-//     .then(res => {
-//       const apiData = res.data
-//       setPhotos(apiData.hits)
-//       setPhoto(photos[0])
-//       console.log(photo)
-//     })
-//   }  
-
-// // get array of data from pixabay
-//   const handleSearch = (e) => {
-//     console.log(search)
-//     e.preventDefault();
-
-//     getPhoto(search)
-    
-//     console.log(photo)
-//   }
+  // theme button
+  const [theme, setTheme] = useState("forest")
 
 
-
-
-
-
-//default
+//default theme
 useEffect(() => {
-  let term = "snow"
+  let term = "forest"
 
   async function fetchPhotos() {
     const res = await fetch(`${api.base}?key=${api.key}&q=${term}&image_type=photo`)
@@ -61,20 +39,23 @@ useEffect(() => {
 
 },[])
 
-const test = {
-  backgroundImage: `url(${photo.largeImageURL})`
-}
 
-const searchPhoto = async(search) => {
-    const res = await fetch(`${api.base}?key=${api.key}&q=${search}&image_type=photo`)
+// get new theme
+useEffect(() => {
+
+  async function fetchPhotos() {
+    const res = await fetch(`${api.base}?key=${api.key}&q=${theme}&image_type=photo`)
     const data = await res.json()
     setPhotos(data.hits)
     setPhoto(data.hits[0])
-    console.log(photos)
-    console.log("searchphoto")
+  }
+  fetchPhotos()
+
+},[theme])
+
+const test = {
+  backgroundImage: `url(${photo.largeImageURL})`
 }
-
-
 
 const changeBackground = () => {
   console.log("clicked")
@@ -83,42 +64,33 @@ const changeBackground = () => {
   setCount(count + 1)
 }
 
-
 const handleSearch = (e) => {
   e.preventDefault()
-  console.log("handele search")
- 
-  console.log(search)
-
-  if(e.key === 'Enter'){
-    searchPhoto(search)
-  }
+  setTheme(e.target.id)
 }
 
 
-  return (
-    <div className="App" style={test}>
+return (
+  <div className="App" style={test}>
 
 
-      <form onSubmit={handleSearch}>
-        <input
-          name="search"
-          type="text"
-          placeholder="Search Thames"
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
-        />
-        <button onClick={handleSearch} className="submit"><img id="searchIcon" src={SearchIcon} alt="search"/></button>
-      </form>
-
-      <button onClick={changeBackground} className="refresh">Refresh</button>
-
-      <div className="credits">
-        <a className="authorCredits" href={photo.pageURL}>{photo.user}</a>
-        <a className="hostCredits" href="https://www.pexels.com/">Provided by Pexels</a>
-      </div>
+    <div className="choices">
+      <button onClick={handleSearch} id="mountain" className="choiceBtn">mountain</button>
+      <button onClick={handleSearch} id="forest" className="choiceBtn">forest</button>
+      <button onClick={handleSearch} id="river" className="choiceBtn">river</button>
+      <button onClick={handleSearch} id="night" className="choiceBtn">night</button>
+      <button onClick={handleSearch} id="nature" className="choiceBtn">nature</button>
+      <button onClick={handleSearch} id="sea" className="choiceBtn">sea</button>
     </div>
-  );
+
+    <button onClick={changeBackground} className="refresh">Refresh</button>
+
+    <div className="credits">
+      <a className="authorCredits" href={photo.pageURL}>{photo.user}</a>
+      <a className="hostCredits" href="https://www.pexels.com/">Provided by Pexels</a>
+    </div>
+  </div>
+);
 }
 
 export default App;
