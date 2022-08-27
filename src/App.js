@@ -19,7 +19,7 @@ function App() {
   const [photo, setPhoto] = useState({})
 
   // counter
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(1)
 
 
 //   const getPhoto = (search) => {
@@ -65,20 +65,34 @@ const test = {
   backgroundImage: `url(${photo.largeImageURL})`
 }
 
+const searchPhoto = async(search) => {
+    const res = await fetch(`${api.base}?key=${api.key}&q=${search}&image_type=photo`)
+    const data = await res.json()
+    setPhotos(data.hits)
+    setPhoto(data.hits[0])
+    console.log(photos)
+    console.log("searchphoto")
+}
+
 
 
 const changeBackground = () => {
-  setCount(count + 1)
   console.log("clicked")
   console.log(`${photos[count].largeImageURL}`)
   setPhoto(photos[count])
+  setCount(count + 1)
 }
 
 
 const handleSearch = (e) => {
-  
   e.preventDefault()
   console.log("handele search")
+ 
+  console.log(search)
+
+  if(e.key === 'Enter'){
+    searchPhoto(search)
+  }
 }
 
 
