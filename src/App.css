@@ -15,12 +15,15 @@
   position: relative;
 }
 
-.credits {
+.creditsWrapper {
   position: fixed;
   width: 100%;
   bottom: 20px;
   text-align: center;
-  transform: translateX(calc(50% - 100px));
+  transform: translateX(calc(50% - 200px));
+}
+.credits {
+  display: flex;
 }
 
 .credits > a {
