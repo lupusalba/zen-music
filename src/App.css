@@ -20,7 +20,7 @@
   width: 100%;
   bottom: 20px;
   text-align: center;
-  transform: translateX(calc(50% - 200px));
+  transform: translateX(calc(50% - 300px));
 }
 .credits {
   display: flex;
@@ -28,7 +28,7 @@
 
 .credits > a {
   display: block;
-  width: 200px;
+  width: 300px;
   padding: 10px 20px;
   backdrop-filter: blur(10px);
   text-decoration: none;
@@ -42,8 +42,7 @@
   border: 1px solid #ccc;
   position: absolute;
   left: calc(50vw - 30px);
-  bottom: 100px;
-  right: 10px;
+  bottom: 130px;
 }
 
 .choices {

@@ -28,27 +28,59 @@ function App() {
   // counter
   const [count, setCount] = useState(1)
 
-  // toggle sound 
-  const [isPlaying, setIsPlaying] = useState(true)
+  // music author
+  const musicAuthor = [
+    {
+      authorLink: "https://pixabay.com/users/daddysmusic-22836301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=10711",
+      authorName: "Zakhar Valaha",
+      providerLink: "https://pixabay.com/music//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=10711",
+      providerName: "Pixabay"
+    },
+    {
+      authorLink: "https://pixabay.com/users/olexy-25300778/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=15013",
+      authorName: "Olexy",
+      providerLink: "https://pixabay.com/music//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=15013",
+      providerName: "Pixabay"
+    },
+    {
+      authorLink: "https://pixabay.com/users/musictown-25873992/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=22136",
+      authorName: "Musictown",
+      providerLink: "https://pixabay.com/music//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=22136",
+      providerName: "Pixabay"
+    },
+    {
+      authorLink: "https://pixabay.com/users/lesfm-22579021/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=9145",
+      authorName: "Oleksii Kaplunskyi",
+      providerLink: "https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=9145",
+      providerName: "Pixabay"
+    },
+    {
+      authorLink: "https://pixabay.com/users/lexin_music-28841948/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=115669",
+      authorName: "Aleksey Chistili",
+      providerLink: "https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=115669",
+      providerName: "Pixabay"
+    },
+    {
+      authorLink: "https://pixabay.com/users/john_kensy_music-26026995/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=22174",
+      authorName: "John K.",
+      providerLink: "https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=22174",
+      providerName: "Pixabay"
+    }
+  ]
+  const [musicAuthorData, setMusicAuthorData] = useState(musicAuthor[0])
 
 
 
 
-  // const [musicAuthor, setMusicAuthor] = useState([
-  //   '<a href="https://pixabay.com/users/daddysmusic-22836301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=10711">Zakhar Valaha</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=10711">Pixabay</a>',
-  //   '<a href="https://pixabay.com/users/olexy-25300778/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=15013">Olexy</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=15013">Pixabay</a>',
-  //   '<a href="https://pixabay.com/users/musictown-25873992/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=22136">Musictown</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=22136">Pixabay</a>',
-  //   '<a href="https://pixabay.com/users/lesfm-22579021/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=9145">Oleksii Kaplunskyi</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=9145">Pixabay</a>',
-  //   '<a href="https://pixabay.com/users/lexin_music-28841948/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=115669">Aleksey Chistilin</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=115669">Pixabay</a>',
-  //   '<a href="https://pixabay.com/users/john_kensy_music-26026995/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=22174">John K.</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=22174">Pixabay</a>'
-
-  // ])
 
   // theme button
   const [theme, setTheme] = useState({
     type: "forest",
     sound: Music1
   })
+
+
+
 
 
   //default theme
@@ -106,19 +138,20 @@ function App() {
   const handleSearch = (e) => {
     e.preventDefault()
 
+
     let audioSource = document.getElementById('audio');
     audioSource.pause()
 
 
     switch (e.target.id) {
-      case "mountain": setTheme({ type: "mountain", sound: Music1 }); break;
-      case "forest": setTheme({ type: "forest", sound: Music2 }); break;
-      case "river": setTheme({ type: "river", sound: Music3 }); break;
-      case "night": setTheme({ type: "night", sound: Music4 }); break;
-      case "nature": setTheme({ type: "nature", sound: Music5 }); break;
-      case "sea": setTheme({ type: "sea", sound: Music6 }); break;
+      case "mountain": setTheme({ type: "mountain", sound: Music1 }); setMusicAuthorData(musicAuthor[0]); break;
+      case "forest": setTheme({ type: "forest", sound: Music2 }); setMusicAuthorData(musicAuthor[1]); break;
+      case "river": setTheme({ type: "river", sound: Music3 }); setMusicAuthorData(musicAuthor[2]); break;
+      case "night": setTheme({ type: "night", sound: Music4 }); setMusicAuthorData(musicAuthor[3]); break;
+      case "nature": setTheme({ type: "nature", sound: Music5 }); setMusicAuthorData(musicAuthor[4]); break;
+      case "sea": setTheme({ type: "sea", sound: Music6 }); setMusicAuthorData(musicAuthor[5]); break;
 
-      default: setTheme({ type: "forest", sound: Music3 }); break;
+      default: setTheme({ type: "forest", sound: Music3 }); setMusicAuthorData(musicAuthor[0]); break;
     }
 
   }
@@ -166,14 +199,14 @@ function App() {
 
       <div className="creditsWrapper">
         <div className="credits">
-          <a className="authorCredits" href={photo.pageURL}>Photo Author{photo.user}</a>
-          <a className="hostCredits" href="https://www.pexels.com/">Provided by Pexels</a>
+          <a className="authorCredits" href={photo.pageURL} target="_blank" rel="noreferrer">Photo Author{photo.user}</a>
+          <a className="hostCredits" href="https://www.pexels.com/" target="_blank" rel="noreferrer">Provided by Pexels</a>
         </div>
 
-        {/* <div className="credits">
-        <a className="musicAuthorCredits authorCredits" href="#">Music Author{theme.musicAuthor}</a>
-        <a className="hostCredits" href="https://www.pexels.com/">Provided by Pexels</a>
-      </div> */}
+        <div className="credits">
+        <a className="musicAuthorCredits authorCredits" href={musicAuthorData.authorLink} target="_blank" rel="noreferrer">{musicAuthorData.authorName}</a>
+        <a className="hostCredits" href={musicAuthorData.providerLink} target="_blank" rel="noreferrer">Provided by {musicAuthorData.providerName}</a>
+      </div>
       </div>
     </div>
   );
