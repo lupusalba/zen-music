@@ -41,7 +41,8 @@
   border-radius: 100%;
   border: 1px solid #ccc;
   position: absolute;
-  top: calc(50vh - 30px);
+  left: calc(50vw - 30px);
+  bottom: 100px;
   right: 10px;
 }
 
@@ -68,4 +69,24 @@
 .choiceBtn:hover {
   border: 1px solid #fff;
   transition: all 500ms ease-in-out;
+}
+
+.stopStart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.stopStart > button {
+  width: 100px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+  border: 1px solid transparent;
+  margin-top:  10px;
+  padding: 5px;
+  text-transform: uppercase;
 }
