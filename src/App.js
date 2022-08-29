@@ -28,6 +28,12 @@ function App() {
   // counter
   const [count, setCount] = useState(1)
 
+  // toggle sound 
+  const [isPlaying, setIsPlaying] = useState(true)
+
+
+
+
   // const [musicAuthor, setMusicAuthor] = useState([
   //   '<a href="https://pixabay.com/users/daddysmusic-22836301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=10711">Zakhar Valaha</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=10711">Pixabay</a>',
   //   '<a href="https://pixabay.com/users/olexy-25300778/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=15013">Olexy</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=15013">Pixabay</a>',
@@ -45,15 +51,6 @@ function App() {
   })
 
 
-  const playAudio = (sound) => {
-    new Audio(sound).play()
-  }
-
-  const stopAudio = (sound) => {
-     Audio(sound).pause()
-  }
-
-
 //default theme
 useEffect(() => {
   let term = "forest"
@@ -69,21 +66,19 @@ useEffect(() => {
 },[])
 
 
-// const choseAudio = (theme) => {
-//   console.log(theme)
-//   switch(theme) {
-//     case "forest": setAudio(ForestSound); break;
-//     case "river": setAudio(RiverSound); break;
-//     default: setAudio(NoRival); break;
-//   }
-// }
 
 
 // get new theme
 useEffect(() => {
+  stopMusic()
+  let audioElement = document.getElementById("audio")
+  let source = document.getElementById("audioSource")
+  source.src = theme.sound
+  audioElement.play()
+
 
   async function fetchPhotos() {
-    stopAudio(theme.sound)
+    //stopMusic()
     const res = await fetch(`${api.base}?key=${api.key}&q=${theme.type}&image_type=photo`)
     const data = await res.json()
     setPhotos(data.hits)
@@ -91,20 +86,22 @@ useEffect(() => {
     
   }
   fetchPhotos()
-  playAudio(theme.sound)
+  console.log(theme.sound)
+  
 
 },[theme])
 
+// useEffect(() => {
+//   stopMusic()
+// const startSound = () => {
+//   let audioElement = document.getElementById("audio")
+//   let source = document.getElementById("audioSource")
+//   source.src = theme.sound
+//   audioElement.play()
+// }
+// startSound()
+// },[theme])
 
-
-// // set audio
-// useEffect((theme) => {
-//   console.log(theme)
-//   console.log("audioooooo")
-  
-//   choseAudio(theme)
-  
-// }, [audio])
 
 
 const test = {
@@ -121,6 +118,9 @@ const changeBackground = () => {
 const handleSearch = (e) => {
   e.preventDefault()
 
+  let audioSource = document.getElementById('audio');
+  audioSource.pause()
+
 
   switch(e.target.id) {
     case "mountain": setTheme({type: "mountain", sound: Music1}); break;
@@ -130,10 +130,23 @@ const handleSearch = (e) => {
     case "nature": setTheme({type: "nature", sound: Music5}); break;
     case "sea": setTheme({type: "sea", sound: Music6}); break;
     
-    default: setTheme({type: "forest", sound: Music1}); break;
+    default: setTheme({type: "forest", sound: Music3}); break;
   }
-
+  
 }
+
+const startMusic = () => {
+  let audioSource = document.getElementById('audio');
+  console.log(audioSource)
+  audioSource.play()
+}
+
+const stopMusic = () => {
+  let audioSource = document.getElementById('audio');
+  audioSource.pause()
+}
+
+
 
 
 return (
@@ -150,7 +163,13 @@ return (
       <button onClick={handleSearch} id="sea" className="choiceBtn">sea</button>
     </div>
 
-    <button onClick={stopAudio(theme.sound)}>Stop</button>
+    <button onClick={stopMusic}>stop</button>
+
+    <button onClick={startMusic}>start</button>
+
+    <audio id="audio">
+      <source id="audioSource" src={Music1} />
+    </audio>
 
     <button onClick={changeBackground} className="refresh">Refresh</button>
 
