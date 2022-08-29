@@ -70,11 +70,8 @@ useEffect(() => {
 
 // get new theme
 useEffect(() => {
-  stopMusic()
-  let audioElement = document.getElementById("audio")
-  let source = document.getElementById("audioSource")
-  source.src = theme.sound
-  audioElement.play()
+  //stopMusic()
+
 
 
   async function fetchPhotos() {
@@ -87,20 +84,20 @@ useEffect(() => {
   }
   fetchPhotos()
   console.log(theme.sound)
-  
+  // let audioElement = document.getElementById("audio")
+  // let source = document.getElementById("audioSource")
+  // source.src = theme.sound
+  // console.log(source)
+  let s = theme.sound
+  let audio = document.getElementById('audio');
+  audio.pause();
+  audio.setAttribute('src', s);
+  audio.load();
+  audio.play();
 
 },[theme])
 
-// useEffect(() => {
-//   stopMusic()
-// const startSound = () => {
-//   let audioElement = document.getElementById("audio")
-//   let source = document.getElementById("audioSource")
-//   source.src = theme.sound
-//   audioElement.play()
-// }
-// startSound()
-// },[theme])
+
 
 
 
